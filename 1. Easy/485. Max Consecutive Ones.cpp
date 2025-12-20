@@ -4,23 +4,22 @@
 using namespace std;
 
 int findMaxConsecutiveOnes(vector<int>& nums) {
-    int maxOnes = 0, currentOnes = 0;
-
-    for(int i = 0; i < nums.size(); i++){
-        if(nums[i] == 1){
-            currentOnes += 1;
-            maxOnes = max(currentOnes, maxOnes);
+    int maxOnes = 0, localSum = 0;
+    
+    for(size_t i = 0; i < nums.size(); i++) {
+        if(nums[i] == 1) {
+            localSum += 1;
+            maxOnes = max(maxOnes, localSum);
         }
-        
-        else 
-            currentOnes = 0;
+        else
+            localSum = 0;
     }
 
     return maxOnes;
 }
 
 int main() {
-    vector<int> nums = {1,1,0,1,1,1};
+    vector<int> nums = {1, 1, 0, 1, 1, 1};
 
     cout<<findMaxConsecutiveOnes(nums);
 

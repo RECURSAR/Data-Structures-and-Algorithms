@@ -3,10 +3,11 @@
  
 using namespace std;
 
-struct TreeNode{
+struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
+
     TreeNode() : val(0), left(nullptr), right(nullptr) {}
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
@@ -16,19 +17,16 @@ TreeNode* createBinaryTree(const vector<int>& values);
 void printBinaryTree(TreeNode* root);
 bool hasPathSum(TreeNode* root, int targetSum);
 
-int main()
-{
-   vector<int> list = {5,4,8,11,-1,13,4,7,2,-1,-1,-1,1};
+int main() {
+   vector<int> list = {5, 4, 8, 11, -1, 13, 4, 7, 2, -1, -1, -1, 1};
    TreeNode* root = createBinaryTree(list);
-   bool res;
 
-   res = hasPathSum(root, 22);
-   cout<<res;
+   hasPathSum(root, 22) ? cout<<"True" : cout<<"False";
 
    return 0;
 }
 
-bool hasPathSum(TreeNode* root, int targetSum){
+bool hasPathSum(TreeNode* root, int targetSum) {
     // Base case: if the root is None, there's no path, return False
     if(root==NULL)
         return false;
@@ -45,7 +43,7 @@ bool hasPathSum(TreeNode* root, int targetSum){
 }
 
 // Helper Function to create a binary tree from a level-order input
-TreeNode* createBinaryTree(const vector<int>& values){
+TreeNode* createBinaryTree(const vector<int>& values) {
     if (values.empty() || values[0] == -1) return nullptr;
 
     TreeNode* root = new TreeNode(values[0]);
@@ -67,11 +65,12 @@ TreeNode* createBinaryTree(const vector<int>& values){
         }
         i++;
     }
+
     return root;
 }
 
 // Helper Function to print the binary tree in level order
-void printBinaryTree(TreeNode* root){
+void printBinaryTree(TreeNode* root) {
     if (!root) return;
     queue<TreeNode*> q;
     q.push(root);

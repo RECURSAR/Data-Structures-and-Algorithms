@@ -5,7 +5,7 @@ using namespace std;
 
 void sortColors(vector<int>& nums) {
     // Dutch National Flag Problem
-    int mid = 0, low = 0, high = nums.size() - 1;
+    int low = 0, mid = 0, high = nums.size() - 1;
 
     while(mid <= high) {
         if(nums[mid] == 0) {
@@ -13,10 +13,9 @@ void sortColors(vector<int>& nums) {
             low += 1;
             mid += 1;
         }
-
-        else if (nums[mid] == 1)
+        else if(nums[mid] == 1) {
             mid += 1;
-        
+        }
         else {
             swap(nums[mid], nums[high]);
             high -= 1;
@@ -25,9 +24,10 @@ void sortColors(vector<int>& nums) {
 }
 
 int main() {
-    vector<int> nums = {2,0,2,1,1,0};
+    vector<int> nums = {2, 0, 2, 1, 1, 0};
 
     sortColors(nums);
+
     for(auto num: nums)
         cout<<num<<" ";
 

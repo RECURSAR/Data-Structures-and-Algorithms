@@ -3,20 +3,17 @@
  
 using namespace std;
 
-int fib(int n) {
+int findSum(int n) {
     if(n == 0)
         return 0;
-        
-    if(n == 1)
-        return 1;
     
-    return fib(n - 1) + fib (n - 2);
+    return n + findSum(n - 1);
 }
 
 int main() {
-    int n = 2;
+    int n = 3;
 
-    cout<<fib(n);
+    cout<<findSum(n);
 
     return 0;
 }

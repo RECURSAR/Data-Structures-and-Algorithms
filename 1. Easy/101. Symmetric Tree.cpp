@@ -3,10 +3,11 @@
  
 using namespace std;
 
-struct TreeNode{
+struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
+
     TreeNode() : val(0), left(nullptr), right(nullptr) {}
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
@@ -17,23 +18,21 @@ void printBinaryTree(TreeNode* root);
 bool isSymmetric(TreeNode* root);
 bool dfs(TreeNode* left, TreeNode* right);
 
-int main()
-{
-    vector<int> list = {1,2,2,3,4,4,3};
+int main() {
+    vector<int> list = {1, 2, 2, 3, 4, 4, 3};
     TreeNode* root = createBinaryTree(list);
-    bool result;
 
-    result = isSymmetric(root);
-    cout<<result;
+    isSymmetric(root) ? cout<<"True" : cout<<"False";
+
     return 0;
 }
 
-bool isSymmetric(TreeNode* root){
+bool isSymmetric(TreeNode* root) {
     return dfs(root->left, root->right);                                                                                                                                                            
 }
 
 
-bool dfs(TreeNode* left, TreeNode* right){
+bool dfs(TreeNode* left, TreeNode* right) {
     if(left==NULL && right==NULL)
         return true;
 
@@ -44,7 +43,7 @@ bool dfs(TreeNode* left, TreeNode* right){
 }
 
 // Helper Function to create a binary tree from a level-order input                                                                                                                                                                                                            
-TreeNode* createBinaryTree(const vector<int>& values){
+TreeNode* createBinaryTree(const vector<int>& values) {
     if (values.empty() || values[0] == -1) return nullptr;
 
     TreeNode* root = new TreeNode(values[0]);
@@ -70,7 +69,7 @@ TreeNode* createBinaryTree(const vector<int>& values){
 }
 
 // Helper Function to print the binary tree in level order
-void printBinaryTree(TreeNode* root){
+void printBinaryTree(TreeNode* root) {
     if (!root) return;
     queue<TreeNode*> q;
     q.push(root);

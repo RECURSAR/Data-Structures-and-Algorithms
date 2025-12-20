@@ -6,9 +6,9 @@ using namespace std;
 bool check(vector<int>& nums) {
     int inversions = 0;
     
-    for(int i = 0; i < nums.size(); i++){
+    for(size_t i = 0; i < nums.size(); i++){
         if(nums[i] > nums[(i+1) % nums.size()])
-            inversions++;
+            inversions += 1;
 
         if(inversions > 1)
             return false;
@@ -17,11 +17,10 @@ bool check(vector<int>& nums) {
     return true;
 }
 
-int main()
-{
-    vector<int> nums = {3,4,5,1,2};
-    bool result = check(nums);
-    cout<<result;
+int main() {
+    vector<int> nums = {3, 4, 5, 1, 2};
+
+    check(nums) ? cout<<"True" : cout<<"False";
 
     return 0;
 }

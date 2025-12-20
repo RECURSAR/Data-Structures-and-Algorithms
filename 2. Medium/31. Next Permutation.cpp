@@ -34,11 +34,12 @@ void nextPermutation(vector<int>& nums) {
 }
 
 int main() {
-    vector<int> nums = {1,2,3};
+    vector<int> nums = {1, 2, 3};
     
     nextPermutation(nums);
-    for(auto res : nums)
-        cout<<res<<" ";
+
+    for(auto num : nums)
+        cout<<num<<" ";
 
     return 0;
 }

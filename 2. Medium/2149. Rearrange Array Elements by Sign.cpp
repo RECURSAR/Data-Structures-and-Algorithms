@@ -7,7 +7,7 @@ vector<int> rearrangeArray(vector<int>& nums) {
     int posIndex = 0, negIndex = 1;
     vector<int> result (nums.size(), 0);
 
-    for(int i = 0; i < nums.size(); i++) {
+    for(size_t i = 0; i < nums.size(); i++) {
         if(nums[i] > 0){
             result[posIndex] = nums[i];
             posIndex += 2;
@@ -22,11 +22,12 @@ vector<int> rearrangeArray(vector<int>& nums) {
 }
 
 int main() {
-    vector<int> nums = {3,1,-2,-5,2,-4};
+    vector<int> nums = {3, 1, -2, -5, 2, -4};
     
     vector<int> result = rearrangeArray(nums);
-    for(auto res : result)
-        cout<<res<<" ";
+
+    for(auto num : result)
+        cout<<num<<" ";
 
     return 0;
 }

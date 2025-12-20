@@ -2,43 +2,34 @@
 #include<bits/stdc++.h>
  
 using namespace std;
- 
-string concatenate(string);
 
-int main()
-{
-    string s = "A man, a plan, a canal: Panama", input;
-    int i = 0, j;
-    input = concatenate(s);
-    j = input.length()-1;
-
-    cout<<j<<endl;
-    cout<<input<<endl;
-
-    if(input.length() == 1 && isalnum(input[0])){
-        cout<<"TRUE"<<endl;
+bool checkPalindrome(int start, int end, string &cleanedString) {
+    if(start >= end)
         return true;
-    }
+    
+    if(cleanedString[start] != cleanedString[end])
+        return false;
 
-    while(i<j){
-        if(input[i] != input[j]){
-            cout<<"NOT PALINDROME"<<endl;
-            return false;
-        }
-        i++;
-        j--;
-    }
-
-    cout<<"PALINDROME"<<endl;
-    return 0;
+    return checkPalindrome(start + 1, end - 1, cleanedString);
 }
 
-string concatenate(string s){
-    string result;
-    for(int i = 0; i<s.size(); i++){
-        if(isalpha(s[i]) || isalnum(s[i])){
-            result.push_back(tolower(s[i]));
-        }
+bool isPalindrome(string s) {
+    string cleanedString = "";
+
+    for(char c : s) {
+        if(isalnum(c))
+            cleanedString.push_back(tolower(c));
     }
-    return result;
+
+    int start = 0, end = cleanedString.size() - 1;
+
+    return checkPalindrome(start, end, cleanedString);
+}
+
+int main() {
+    string s = "A man, a plan, a canal: Panama";
+    
+    isPalindrome(s) ? cout<<"True" : cout<<"False";
+
+    return 0;
 }

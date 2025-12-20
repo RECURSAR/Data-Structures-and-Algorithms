@@ -6,14 +6,14 @@ using namespace std;
 int singleNumber(vector<int>& nums) {
     int missingNumber = 0;
 
-    for(int i = 0; i < nums.size(); i++)
+    for(size_t i = 0; i < nums.size(); i++)
         missingNumber = missingNumber ^ nums[i];
 
     return missingNumber;
 }
 
 int main() {
-    vector<int> nums = {4,1,2,1,2};
+    vector<int> nums = {4, 1, 2, 1, 2};
 
     cout<<singleNumber(nums);
 
