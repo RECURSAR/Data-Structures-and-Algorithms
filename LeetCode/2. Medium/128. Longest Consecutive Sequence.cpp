@@ -4,26 +4,28 @@
 using namespace std;
 
 int longestConsecutive(vector<int>& nums) {
-    if(nums.empty())
+    if(nums.size() == 0)
         return 0;
-
-    int longest = 1;
-    unordered_set<int> set;
     
+    int longest = 1, localLongest = 1, currentNumber = 0;
+    unordered_set<int> st;
+
+    // Populating Set
     for(auto num : nums)
-        set.insert(num);
-    
-    for(auto num : set) {
-        if(set.find(num - 1) == set.end()) {
-            int count = 1;
-            int currNum = num;
+        st.insert(num);
 
-            while(set.find(currNum + 1) != set.end()) {
-                count += 1;
-                currNum += 1;
+    for(auto num : st) {
+        // Find a starting point to avoid Re-Calculation
+        if(st.find(num + 1) == st.end()) {
+            localLongest = 1;
+            currentNumber = num;
+
+            while(st.find(currentNumber - 1) != st.end()) {
+                localLongest += 1;
+                currentNumber -= 1;
             }
-                
-            longest = max(longest, count);
+
+            longest = max(longest, localLongest);   
         }
     }
 
@@ -31,7 +33,7 @@ int longestConsecutive(vector<int>& nums) {
 }
 
 int main() {
-    vector<int> nums = {100,4,200,1,3,2};
+    vector<int> nums = {100, 4, 200, 1, 3, 2};
     
     cout<<longestConsecutive(nums);
 
