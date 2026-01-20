@@ -5,8 +5,7 @@ using namespace std;
 
 int missingNumber(vector<int>& nums) {
     // Sigma of n is (n * (n + 1)) / 2
-    int expectedSum = (nums.size() * (nums.size() + 1)) / 2;
-    int originalSum = 0;
+    int expectedSum = (nums.size() * (nums.size() + 1)) / 2, originalSum = 0;
 
     for(auto num : nums)
         originalSum += num;
