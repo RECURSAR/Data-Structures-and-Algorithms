@@ -50,10 +50,8 @@ int main() {
     vector<int> a = {1, 2, 3, 4, 5}, b = {1, 2, 3, 6, 7};
 
     vector<int> result = findUnion(a, b);
-
-    for (auto res : result) {
+    for (auto res : result)
         cout << res << " ";
-    }
 
     return 0;
 }

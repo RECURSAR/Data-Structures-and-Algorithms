@@ -48,7 +48,6 @@ int main() {
     vector<int> arr = {4, 1, 3, 9, 7};
     
     quickSort(arr, 0, arr.size() - 1);
-
     for(auto num : arr)
         cout<<num<<" ";
 

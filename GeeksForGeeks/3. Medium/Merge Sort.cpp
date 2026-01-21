@@ -72,7 +72,6 @@ int main() {
     vector<int> arr = {4, 1, 3, 9};
 
     mergeSort(arr, 0, arr.size() - 1);
-
     for(int num : arr)
         cout << num << " ";
 

@@ -43,7 +43,6 @@ int main() {
     vector<int> arr = {1, 2, 2, 3, 3, 5};
 
     vector<vector<int>> result = countFreq(arr);
-
     for(auto res : result) {
         for(auto r : res)
             cout<<r<<" ";

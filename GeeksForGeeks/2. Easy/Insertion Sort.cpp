@@ -39,10 +39,8 @@ int main() {
     vector<int> arr = {4, 1, 3, 9, 7};
 
     insertionSort(arr);
-
-    for(auto num : arr) {
+    for(auto num : arr)
         cout<<num<<" ";
-    }
 
     return 0;
 }

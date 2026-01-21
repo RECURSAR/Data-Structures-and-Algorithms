@@ -22,7 +22,6 @@ int main() {
     vector<int> arr = {1, 4, 3, 2, 6, 5};
 
     reverseArray(arr);
-
     for(auto number : arr)
         cout<<number<<" ";
 

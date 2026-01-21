@@ -21,7 +21,6 @@ int main() {
     vector<int> arr = {4, 1, 3, 9, 7};
 
     selectionSort(arr);
-
     for(auto num : arr)
         cout<<num<<" ";
 
