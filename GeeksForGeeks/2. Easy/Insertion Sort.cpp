@@ -4,14 +4,16 @@
 using namespace std;
 
 // Iterative
-// void insertionSort(vector<int>& arr) {
-//     for(size_t i = 1; i < arr.size(); i++) {
-//         for(size_t j = i; j > 0; j--) {
-//             if(arr[j] < arr[j - 1])
-//                 swap(arr[j], arr[j - 1]);
-//         }
-//     } 
-// }
+/*
+void insertionSort(vector<int>& arr) {
+    for(size_t i = 1; i < arr.size(); i++) {
+        for(size_t j = i; j > 0; j--) {
+            if(arr[j] < arr[j - 1])
+                swap(arr[j], arr[j - 1]);
+        }
+    } 
+}
+*/
 
 // Recursive
 void recursiveInsertionSort(vector<int> &arr, int n) {
