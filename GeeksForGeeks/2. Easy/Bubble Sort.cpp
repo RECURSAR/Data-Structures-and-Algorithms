@@ -4,15 +4,17 @@
 using namespace std;
 
 // Iterative
-// void bubbleSort(vector<int>& arr) {
-//     for(size_t i = 0; i < arr.size() - 1; i++) {
-//         // Sorted element goes at the last
-//         for(size_t j = 0; j < arr.size() - i - 1; j++) {
-//             if(arr[j + 1] < arr[j])
-//                 swap(arr[j + 1], arr[j]);
-//         }
-//     }
-// }
+/*
+void bubbleSort(vector<int>& arr) {
+    for(size_t i = 0; i < arr.size() - 1; i++) {
+        // Sorted element goes at the last
+        for(size_t j = 0; j < arr.size() - i - 1; j++) {
+            if(arr[j + 1] < arr[j])
+                swap(arr[j + 1], arr[j]);
+        }
+    }
+}
+*/
 
 // Recursive
 void recursiveBubbleSort(vector<int> &arr, int n) {
