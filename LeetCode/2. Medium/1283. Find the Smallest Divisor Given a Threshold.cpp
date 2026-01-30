@@ -7,7 +7,7 @@ bool isCandidate(const vector<int> &nums, int threshold, int mid) {
     int currentSum = 0;
 
     for(int num : nums)
-        currentSum += (num + mid - 1) / mid;    // Ceiling Function
+        currentSum += ceil(double(num) / mid);  // Ceiling Function
 
     return threshold >= currentSum;
 }
