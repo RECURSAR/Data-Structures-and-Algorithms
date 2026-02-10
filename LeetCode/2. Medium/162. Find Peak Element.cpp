@@ -8,10 +8,18 @@ int findPeakElement(vector<int>& nums) {
 
     while(low < high) {
         mid = low + (high - low) / 2;
-
-        // Move to Left Half if Middle Element is greater than next
+        
+        /*Case 1: nums[mid] > nums[mid + 1] (descending slope 📉)
+            You are on a downhill
+            A peak must exist on the left (or at mid)
+            Move Left*/
         if(nums[mid] > nums[mid + 1])
             high = mid;
+
+        /*Case 2: nums[mid] < nums[mid + 1] (ascending slope 📈)
+            You are on an uphill
+            A peak must exist on the right
+            Move Right*/
         else 
             low = mid + 1;
     }
