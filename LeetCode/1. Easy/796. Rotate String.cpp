@@ -7,9 +7,9 @@ bool rotateString(string s, string goal) {
     if(s.size() != goal.size())
         return false;
     
-    string concatenated_string = s + s;
+    string concatenatedString = s + s;
 
-    return concatenated_string.find(goal) != string::npos;
+    return concatenatedString.find(goal) != string::npos;
 }
 
 int main() {

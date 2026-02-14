@@ -1,37 +1,59 @@
-#include <iostream>
-#include <bits/stdc++.h>
-
+#include<iostream>
+#include<bits/stdc++.h>
+ 
 using namespace std;
 
-int main()
-{
-    string s = "rat", t = "car";
-    map<char, int> m1, m2;
-    bool result;
+// Using Map - Better Way
+/*
+bool isAnagram(string s, string t) {
+    if(s.size() != t.size())
+        return false;
 
-     if (s.size() != t.size()){
-        result = false;
-        cout<<result<<endl;
-        exit(0);
-     }
-            
-    for (int i = 0; i < s.size(); i++){
-        m1[s[i]]++;
-        m2[t[i]]++;
-    }
+    unordered_map<char, int> mpp;
+
+    for(auto ch : s)
+        mpp[ch] += 1;
+    
+    for(auto ch : t) {
+        if(mpp.find(ch) == mpp.end() || mpp[ch] == 0)
+            return false;
         
-    for (int i = 0; i < t.size(); i++){
-        if(m1.find(t[i]) != m1.end() && m1[t[i]] == m2[t[i]])
-            result = true;
-
-        else{
-            result = false;
-            cout<<result<<endl;
-            exit(0);
-        }    
+        mpp[ch] -= 1;
     }
 
-cout << result << endl;
+    return true;
+}
+*/
 
-return 0;
+// Using constant space
+bool isAnagram(string s, string t) {
+    if(s.size() != t.size())
+        return false;
+
+    int freq[26] = {0};
+    int index = 0;
+
+    for(int i = 0; i < s.size(); i++) {
+        index = s[i] - 'a';
+        freq[index] += 1;
+    }
+
+    for(int i = 0; i < t.size(); i++) {
+        index = t[i] - 'a';
+        freq[index] -= 1;
+    }
+
+    for(int i = 0; i < 26; i++)
+        if(freq[i] != 0)
+            return false;
+    
+    return true;
+}
+
+int main() {
+    string s = "anagram", t = "nagaram";    
+
+    isAnagram(s, t) ? cout<<"True" : cout<<"False";
+
+    return 0;
 }

@@ -2,31 +2,38 @@
 #include<bits/stdc++.h>
  
 using namespace std;
- 
-int main()
-{
-   string s = "foo", t = "bar";
-   map<char, char> m1, m2;
-   char temp1, temp2;
-   bool result;
 
-   for(int i = 0; i<s.size(); i++){
-        temp1 = s[i];
-        temp2 = t[i];
+bool isIsomorphic(string s, string t) {
+    char c1, c2;
+    unordered_map<char, char> mpp;
+    unordered_set<char> st;
 
-        // Both strings should be isomorphic to eachother
-        if(m1.find(temp1) != m1.end() && m1[temp1] != temp2 || m2.find(temp2) != m2.end() && m2[temp2] != temp1){
-            result = false;
-            cout<<result<<endl;
-            exit(0);
+    for(int i = 0; i < s.size(); i++) {
+        c1 = s[i];
+        c2 = t[i];
+
+        if(mpp.find(c1) != mpp.end()) {
+            // Element is mapped to another element which is false
+            if(mpp[c1] != c2)
+                return false;
         }
+        else {
+            // Element was mapped to another element but a new mapping appeared which is also false
+            if(st.find(c2) != st.end())
+                return false;
+            
+            mpp[c1] = c2;
+            st.insert(c2);
+        }
+    }
 
-        m1[temp1] = temp2;
-        m2[temp2] = temp1;
-   }
+    return true;
+}
 
-    result = true;
-    cout<<result;
+int main() {
+    string s = "egg", t = "add";
+    
+    isIsomorphic(s, t) ? cout<<"True" : cout<<"False";
 
-   return 0;
+    return 0;
 }

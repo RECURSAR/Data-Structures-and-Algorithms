@@ -1,62 +1,29 @@
-int decesion = 0;
-int priority(char, char);
+#include<iostream>
+#include<bits/stdc++.h>
+ 
+using namespace std;
 
-class Solution {
-public:
-    int romanToInt(string s) {
-    int i,j,sum = 0,temp;
-    int VALUES[7] = {1,5,10,50,100,500,1000};
-    i = 0;
-    while(i!=s.length())
-    {
-        j=i+1;
-        temp = priority(s[i],s[j]);
-        if(decesion == 1)
-        {
-            sum = sum + temp;
-            i++;
-        }
+int romanToInt(string s) {
+    unordered_map<char, int> ROMANS = {
+        {'I', 1}, {'V', 5}, {'X', 10},
+        {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}
+    };
+    int result = 0;
 
-        else 
-        {
-            sum = sum + temp;
-            i+=2;
-        }
+    for(size_t i = 0; i < s.size() - 1; i++) {
+        if(ROMANS[s[i]] < ROMANS[s[i + 1]])
+            result -= ROMANS[s[i]];
+        else
+            result += ROMANS[s[i]];
     }
-        return sum;
-    }
-};
-
-int priority(char a, char b)
-{
-    char CHAR[7] = {'I','V','X','L','C','D','M'};
-    int VALUES[7] = {1,5,10,50,100,500,1000};
-    int x,y,value1,value2;
-
-    for(int i=0; i<7; i++)
-    {
-        if(a==CHAR[i])
-        {
-            x = i;  
-            value1 = VALUES[i];
-        }   
-        
-        if(b==CHAR[i])
-        {
-            y = i;
-            value2 = VALUES[i];
-        }   
-    }
-
-    if(x > y || x - y == 0)         
-    {
-        decesion = 1;
-        return value1;
-    }    
     
-    else                             
-    {
-        decesion = 0;
-        return value2 - value1;
-    }    
+    return result + ROMANS[s.back()];
+}
+
+int main() {
+    string s = "III";
+    
+    cout<<romanToInt(s);
+
+    return 0;
 }

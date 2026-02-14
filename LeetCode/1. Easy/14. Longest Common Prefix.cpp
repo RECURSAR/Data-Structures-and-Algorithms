@@ -1,30 +1,31 @@
 #include<iostream>
-#include<vector>
-#include<string>
+#include<bits/stdc++.h>
+ 
 using namespace std;
 
-int main()
-{
-    vector<string> s = {"flower","flow","flight"}; 
-    string res = "";
-
-    if(s.size() == 0) {
-        cout<<res;
-        return 0;
-    }
-
-    for(int i=0; i<s[0].size(); i++) {
-        char c = s[0][i];
-        for(int j=1; j<s.size(); j++) {
-            if(i >= s[j].size() || s[j][i] != c) {
-                cout<<res;
-                return 0;
-            }
-        }
-        res += c;
-    }
-
-    cout<<res;
+string longestCommonPrefix(vector<string>& strs) {
+    if(strs.size() == 0)
+        return "";
     
+    sort(strs.begin(), strs.end());
+
+    string first = strs[0], last = strs[strs.size() - 1], prefix = "";
+    size_t minLength = min(first.size(), last.size());
+
+    for(size_t i = 0; i < minLength; i++) {
+        if(first[i] != last[i])
+            break;
+        
+        prefix += first[i];
+    }
+
+    return prefix;
+}
+
+int main() {
+    vector<string> strs = {"flower", "flow", "flight"};
+    
+    cout<<longestCommonPrefix(strs);
+
     return 0;
 }

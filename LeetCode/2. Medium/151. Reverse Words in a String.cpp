@@ -2,44 +2,43 @@
 #include<bits/stdc++.h>
  
 using namespace std;
- 
-int main()
-{
-    string s = "  Bob    Loves  Alice   ";
-    stack<string> st;
-    string word = "";
 
-    for(int i=0; i<s.length(); i++)
-    {
-        if(s[i] == ' ')
-        {
-            if(word != "")
-            {
-                st.push(word);
-                word = "";
-            }
-        }
-        else
-        {
-            word += s[i];
-        }
+string reverseWords(string s) {
+    string result = "", currentWord = "";
+
+    int i = s.size() - 1, end = 0;
+
+    while(i >= 0) {
+        // Skipping Spaces at the current position
+        while(i >= 0 && s[i] == ' ')
+            i -= 1;
+        
+        if(i < 0)
+            break;
+
+        end = i;
+
+        // Move left until a space or start of string is found
+        while(i >= 0 && s[i] != ' ')
+            i -= 1;
+        
+        // Extract Current Word
+        currentWord = s.substr(i + 1, end - i);
+
+        // Add space before appending next word if result is not empty
+        if(!result.empty())
+            result += " ";
+
+        result += currentWord;
     }
 
-    if(word != "")
-        st.push(word);
+    return result;
+}
 
-    string ans = "";
-
-    while(!st.empty())
-    {
-        ans += st.top();
-        st.pop();
-        if(!st.empty())
-        {
-            ans += " ";
-        }
-    }
+int main() {
+    string s = "the sky is blue";
     
-    cout<<ans;    
+    cout<<reverseWords(s);
+
     return 0;
 }
