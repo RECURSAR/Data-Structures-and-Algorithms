@@ -12,37 +12,47 @@ struct ListNode {
 ListNode* createLinkedList(const vector<int>& values);
 void printLinkedList(ListNode* head);
 
-ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode *dummy = new ListNode(0);
-    dummy->next = head;
+bool isPalindrome(ListNode* head) {
+    ListNode *slow = head, *fast = head, 
+             *prev = NULL, *next = NULL, 
+             *first = NULL, *second = NULL;
 
-    ListNode *slow = dummy, *fast = dummy, *deleteNode = NULL;
-
-    // Establishing a gap of n
-    for(size_t i = 0; i <= n; i++)
-        fast = fast->next;
-
-    // After we reach the end the slow pointer is just before the node that needs to be deleted
-    while(fast != NULL) {
+    // Slow end up at mid point and Fast ends up at the last point
+    while(fast != NULL && fast->next != NULL) {
         slow = slow->next;
-        fast = fast->next;
+        fast = fast->next->next;
     }
 
-    deleteNode = slow->next;
-    slow->next = deleteNode->next;
+    // Reversing the second half after slow
+    while(slow != NULL) {
+        next = slow->next;
+        slow->next = prev;
 
-    delete deleteNode;
+        prev = slow;
+        slow = next;
+    }
 
-    return dummy->next;
+    // Iterating both halves simulataneously, original first half and reversed second half
+    first = head;
+    second = prev;
+
+    while(second != NULL) {
+        if(first->val != second->val)
+            return false;
+        
+        first = first->next;
+        second = second->next;
+    }
+
+    return true;
 }
 
 int main() {
-    vector<int> list = {1, 2, 3, 4, 5};
+    vector<int> list = {1, 2, 2, 1};
 
     ListNode *head = createLinkedList(list);
-    int n = 2;
-
-    head = removeNthFromEnd(head, n);
+    
+    isPalindrome(head) ? cout<<"True" : cout<<"False";
 
     printLinkedList(head);
 

@@ -13,18 +13,26 @@ ListNode* createLinkedList(const vector<int>& values);
 void printLinkedList(ListNode* head);
 ListNode* createLinkedListWithCycle(const vector<int>& values, int pos);
 
-bool hasCycle(ListNode *head) {
+ListNode *detectCycle(ListNode *head) {
     ListNode *slow = head, *fast = head;
 
     while(fast != NULL && fast->next != NULL) {
         slow = slow->next;
         fast = fast->next->next;
 
-        if(slow == fast)
-            return true;
+        if(fast == slow) {
+            slow = head;
+
+            while(fast != slow) {
+                fast = fast->next;
+                slow = slow->next;
+            }
+
+            return slow;
+        }
     }
 
-    return false;
+    return NULL;
 }
 
 int main() {
@@ -33,7 +41,7 @@ int main() {
 
     ListNode *head = createLinkedListWithCycle(list, pos);
     
-    hasCycle(head) ? cout<<"True" : cout<<"False";
+    cout<<detectCycle(head)->val;
 
     return 0;
 }

@@ -19,7 +19,21 @@ Node* createLinkedList(const vector<int>& values);
 void printLinkedList(Node* head);
 
 Node *reverse(Node *head) {
+    if(head == NULL || head->next == NULL)
+        return head;
     
+    Node *prev = NULL, *current = head;
+
+    while(current != NULL) {
+        prev = current->prev;
+
+        current->prev = current->next;
+        current->next = prev;
+
+        current = current->prev;
+    }
+
+    return prev->prev;
 }
 
 int main() {
@@ -27,7 +41,7 @@ int main() {
 
     Node *head = createLinkedList(list);
 
-    reverse(head);
+    head = reverse(head);
 
     printLinkedList(head);
 

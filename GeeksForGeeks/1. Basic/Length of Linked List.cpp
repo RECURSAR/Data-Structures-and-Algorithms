@@ -26,14 +26,14 @@ void printLinkedList(Node* head);
 
 int getCount(Node* head) {
     Node *current = head;
-    int count = 0;
+    int length = 0;
 
     while(current != NULL) {
-        count += 1;
+        length += 1;
         current = current->next;
     }
 
-    return count;
+    return length;
 }
 
 int main() {

@@ -12,39 +12,44 @@ struct ListNode {
 ListNode* createLinkedList(const vector<int>& values);
 void printLinkedList(ListNode* head);
 
-ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode *dummy = new ListNode(0);
-    dummy->next = head;
+// Brute-Force Approach
+/*
+ListNode* middleNode(ListNode* head) {
+    ListNode *current = head;
+    int length = 0;
 
-    ListNode *slow = dummy, *fast = dummy, *deleteNode = NULL;
-
-    // Establishing a gap of n
-    for(size_t i = 0; i <= n; i++)
-        fast = fast->next;
-
-    // After we reach the end the slow pointer is just before the node that needs to be deleted
-    while(fast != NULL) {
-        slow = slow->next;
-        fast = fast->next;
+    while(current != NULL) {
+        length += 1;
+        current = current->next;
     }
 
-    deleteNode = slow->next;
-    slow->next = deleteNode->next;
+    current = head;
+    for(int i = 0; i < length / 2; i++)
+        current = current->next;
 
-    delete deleteNode;
+    return current;   
+}
+*/
 
-    return dummy->next;
+// Optimal Approach using Fast and Slow Pointers
+ListNode* middleNode(ListNode* head) {
+    ListNode *fast = head, *slow = head;
+    
+    while(fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
 }
 
 int main() {
     vector<int> list = {1, 2, 3, 4, 5};
 
     ListNode *head = createLinkedList(list);
-    int n = 2;
+    ListNode *middle = middleNode(head);
 
-    head = removeNthFromEnd(head, n);
-
-    printLinkedList(head);
+    printLinkedList(middle);
 
     return 0;
 }

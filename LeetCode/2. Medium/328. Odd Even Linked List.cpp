@@ -12,37 +12,31 @@ struct ListNode {
 ListNode* createLinkedList(const vector<int>& values);
 void printLinkedList(ListNode* head);
 
-ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode *dummy = new ListNode(0);
-    dummy->next = head;
+ListNode* oddEvenList(ListNode* head) {
+    if(head == NULL || head->next == NULL)
+        return head;
 
-    ListNode *slow = dummy, *fast = dummy, *deleteNode = NULL;
+    ListNode *odd = head, *even = head->next, *evenHead = even;
 
-    // Establishing a gap of n
-    for(size_t i = 0; i <= n; i++)
-        fast = fast->next;
+    while(even != NULL && even->next != NULL) {
+        odd->next = even->next;
+        odd = odd->next;
 
-    // After we reach the end the slow pointer is just before the node that needs to be deleted
-    while(fast != NULL) {
-        slow = slow->next;
-        fast = fast->next;
+        even->next = odd->next;
+        even = even->next;
     }
 
-    deleteNode = slow->next;
-    slow->next = deleteNode->next;
+    odd->next = evenHead;
 
-    delete deleteNode;
-
-    return dummy->next;
+    return head;
 }
 
 int main() {
     vector<int> list = {1, 2, 3, 4, 5};
 
     ListNode *head = createLinkedList(list);
-    int n = 2;
-
-    head = removeNthFromEnd(head, n);
+    
+    head = oddEvenList(head);
 
     printLinkedList(head);
 

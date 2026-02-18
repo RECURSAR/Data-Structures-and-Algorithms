@@ -3,7 +3,7 @@
  
 using namespace std;
 
-// Bruteforce Approach
+// Brute-Force Approach
 /*
 bool isPalindrome(const std::string& str) {
     int left = 0;

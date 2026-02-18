@@ -12,37 +12,26 @@ struct ListNode {
 ListNode* createLinkedList(const vector<int>& values);
 void printLinkedList(ListNode* head);
 
-ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode *dummy = new ListNode(0);
-    dummy->next = head;
+ListNode* reverseList(ListNode* head) {
+    ListNode *prev = NULL, *temp = head, *front;
 
-    ListNode *slow = dummy, *fast = dummy, *deleteNode = NULL;
+    while(temp != NULL) {
+        front = temp->next;
+        temp->next = prev;
 
-    // Establishing a gap of n
-    for(size_t i = 0; i <= n; i++)
-        fast = fast->next;
-
-    // After we reach the end the slow pointer is just before the node that needs to be deleted
-    while(fast != NULL) {
-        slow = slow->next;
-        fast = fast->next;
+        prev = temp;
+        temp = front;
     }
 
-    deleteNode = slow->next;
-    slow->next = deleteNode->next;
-
-    delete deleteNode;
-
-    return dummy->next;
+    return prev;
 }
 
 int main() {
     vector<int> list = {1, 2, 3, 4, 5};
 
     ListNode *head = createLinkedList(list);
-    int n = 2;
-
-    head = removeNthFromEnd(head, n);
+    
+    head = reverseList(head);
 
     printLinkedList(head);
 
