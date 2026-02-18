@@ -9,10 +9,9 @@ Welcome to my Data Structures and Algorithms practice repository! This is a comp
 Solutions organized by difficulty level:
 
 - **1. Basic** - Fundamental concepts and problems
-
 - **2. Easy** - Introductory level problems
-
 - **3. Medium** - Intermediate challenges
+- **4. Hard** - Advanced problem-solving
 
 ### **LeetCode**
 
