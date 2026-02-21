@@ -2,52 +2,54 @@
 #include<bits/stdc++.h>
  
 using namespace std;
- 
+
 struct ListNode {
     int val;
     ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
 ListNode* createLinkedList(const vector<int>& values);
 void printLinkedList(ListNode* head);
 
-int main(){
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    ListNode *dummy = new ListNode(0);
+    ListNode *temp = dummy;
+    int carry = 0, sum = 0;
 
-    vector<int> list1 = {2, 4, 3}; // Represents number 342
-    vector<int> list2 = {5, 6, 4}; // Represents number 465
-    
-    ListNode* l1 = createLinkedList(list1);
-    ListNode* l2 = createLinkedList(list2);
+    while((l1 != NULL || l2 != NULL) || carry != 0) {
+        sum = 0;
 
-    ListNode* dummyHead = new ListNode();
-    ListNode* current = dummyHead;
-    int carry = 0, d1, d2;
-
-    // we are taking carry in while loop because of an edge case i.e 7 + 7 = 14, only one node is present
-    // in both the linked list but carry exists
-    while(l1 != NULL || l2 != NULL || carry != 0){
-        d1 = (l1 != NULL) ? l1->val : 0;
-        d2 = (l2 != NULL) ? l2->val : 0;
-
-        int sum = d1 + d2 + carry;
-        carry = sum / 10;
-
-        current->next = new ListNode(sum % 10);
-        current = current->next;
-
-        if(l1 != NULL)
+        if(l1 != NULL) {
+            sum += l1->val;
             l1 = l1->next;
-        
-        if(l2 != NULL)
+        }
+        if(l2 != NULL) {
+            sum += l2->val;
             l2 = l2->next;
+        }
+
+        sum += carry;
+        carry = sum / 10;
+        ListNode *node = new ListNode(sum % 10);
+        temp->next = node;
+        temp = temp->next;
     }
 
-    printLinkedList(dummyHead->next);
+    return dummy->next;
+}
 
-   return 0;
+int main() {
+    vector<int> list1 = {2, 4, 3}, list2 = {5, 6, 4};
+
+    ListNode *l1 = createLinkedList(list1);
+    ListNode *l2 = createLinkedList(list2);
+
+    ListNode *result = addTwoNumbers(l1, l2);
+
+    printLinkedList(result);
+
+    return 0;
 }
 
 // Helper function to create a linked list from a vector of values
@@ -56,7 +58,7 @@ ListNode* createLinkedList(const vector<int>& values) {
         return nullptr;
     ListNode* head = new ListNode(values[0]);
     ListNode* current = head;
-    for (int i = 1; i < values.size(); ++i) {
+    for (size_t i = 1; i < values.size(); ++i) {
         current->next = new ListNode(values[i]);
         current = current->next;
     }

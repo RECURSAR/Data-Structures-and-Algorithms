@@ -24,16 +24,26 @@ class Node {
 Node* createLinkedList(const vector<int>& values);
 void printLinkedList(Node* head);
 
-Node* addOne(Node* head) {
-    Node *current = head;
+int addOneUntil(Node *current) {
+    if(current == NULL)
+        return 1;
 
-    while(current != NULL) {
-        if(current->next == NULL) {
-            current->data += 1;
-            break;
-        }
-            
-        current = current->next;
+    int carry = addOneUntil(current->next);
+    int sum = current->data + carry;
+
+    current->data = sum % 10;
+
+    return sum / 10;
+}
+
+Node* addOne(Node* head) {
+    Node *newHead = NULL;
+    int carry = addOneUntil(head);
+
+    if(carry != 0) {
+        newHead = new Node(carry);
+        newHead->next = head;
+        head = newHead;
     }
 
     return head;
