@@ -3,53 +3,53 @@
  
 using namespace std;
 
-struct ListNode{
+struct ListNode {
     int val;
     ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
 ListNode* createLinkedList(const vector<int>& values);
 void printLinkedList(ListNode* head);
 
-int main()
-{
-    vector<int> list = {1,2,3,4,5};
-    int k = 2, i = 0, len = 1;
-    ListNode* head = createLinkedList(list);
-    ListNode* last = head, *current, *newHead;
+ListNode* rotateRight(ListNode* head, int k) {
+    if(head == NULL || head->next == NULL || k == 0)
+            return head;
+        
+    ListNode *current = head, *newHead = NULL, *newTail = NULL;
+    int length = 1, stepsToTail = 0;
 
-    if(head == NULL){
-        cout<<"Nothing in head"<<endl;
-        exit(0);
-    }
-
-    while(last->next){
-        last = last->next;
-        len++;
-    }
-
-    // If k is a multiple of len then the entire linked list will be rotated and remain the same as original
-    k = k % len;
-    if(k == 0){
-        printLinkedList(head);
-        exit(0);
-    }
-
-    // Reaching the node from where we will remove and add remaining list to front
-    current = head;
-    for(i = 0; i < len - k - 1; i++)
+    while(current->next != NULL) {
         current = current->next;
-    
+        length += 1;
+    }
 
-    newHead = current->next;
-    current->next = NULL;
-    last->next = head;
-  
-    printLinkedList(newHead);
-   return 0;
+    current->next = head;
+
+    k = k % length;
+    stepsToTail = length - k;
+    newTail = head;
+
+    for(int i = 1; i < stepsToTail; i++)
+        newTail = newTail->next;
+
+    newHead = newTail->next;
+    newTail->next = NULL;
+    
+    return newHead;
+}
+
+int main() {
+    vector<int> list = {1, 2, 3, 4, 5};
+    int k = 2;
+
+    ListNode *head = createLinkedList(list);
+    
+    head = rotateRight(head, k);
+
+    printLinkedList(head);
+
+    return 0;
 }
 
 // Helper function to create a linked list from a vector of values
@@ -58,7 +58,7 @@ ListNode* createLinkedList(const vector<int>& values) {
         return nullptr;
     ListNode* head = new ListNode(values[0]);
     ListNode* current = head;
-    for (int i = 1; i < values.size(); ++i) {
+    for (size_t i = 1; i < values.size(); ++i) {
         current->next = new ListNode(values[i]);
         current = current->next;
     }

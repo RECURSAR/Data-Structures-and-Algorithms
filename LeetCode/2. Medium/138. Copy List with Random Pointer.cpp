@@ -3,103 +3,133 @@
  
 using namespace std;
 
-struct Node{
+class Node {
+public:
     int val;
     Node* next;
     Node* random;
-
-    Node(int _val){
+    
+    Node(int _val) {
         val = _val;
         next = NULL;
         random = NULL;
     }
 };
 
-Node* createLinkedList(const vector<pair<int, int>>& values);
+Node* createLinkedList(const vector<int>& values);
 void printLinkedList(Node* head);
+void setRandomPointers(Node* head, const vector<int>& randomIndices);
 
-int main()
-{
-    vector<pair<int, int>> list = {{7, -1}, {13, 0}, {11, 4}, {10, 2}, {1, 0}};
-    Node* head = createLinkedList(list);
+void insertCopyInBetween(Node *head) {
+    Node *current = head, *next = NULL;
 
-    cout << "Original list: ";
-    printLinkedList(head);
+    while(current != NULL) {
+        next = current->next;
+        Node *copy = new Node(current->val);
+        
+        copy->next = next;
+        current->next = copy;
 
-    if(!head){
-        cout<<"EMPTY";
-        exit(0);
+        current = next;
     }
+}
 
-    // Step 1: Create new nodes and interweave them with the original nodes
-    Node* current = head;
-    while (current) {
-        Node* newNode = new Node(current->val);
-        newNode->next = current->next;
-        current->next = newNode;
-        current = newNode->next;
+void connectRandomPointers(Node *head) {
+    Node *current = head;
+
+    while(current != NULL) {
+        Node *copy = current->next;
+
+        if(current->random != NULL)
+            copy->random = current->random->next;   // Pointing to the copy that is why it is next
+        else
+            copy->random = NULL;
+        
+        current = current->next->next;
     }
+}
 
-    // Step 2: Assign random pointers to the new nodes
-        current = head;
-        while (current) {
-            if (current->random) {
-                current->next->random = current->random->next;
-            }
-            current = current->next->next;
-        }
+Node* getDeepCopyList(Node *head) {
+    Node *dummy = new Node(0);
+    Node *result = dummy;
+    Node *current = head;
 
-    // Step 3: Restore the original list and extract the copied list
-    current = head;
-    Node* newHead = head->next;
-    Node* copyCurrent = newHead;
-    while (current) {
+    while(current != NULL) {
+        result->next = current->next;
+        result = result->next;
+
         current->next = current->next->next;
-        if (copyCurrent->next) {
-            copyCurrent->next = copyCurrent->next->next;
-        }
         current = current->next;
-        copyCurrent = copyCurrent->next;
     }
 
-    cout<<"New List: ";
-    printLinkedList(newHead);
-   return 0;
+    return dummy->next;
 }
 
-// Helper function to create a linked list from a vector of pairs
-Node* createLinkedList(const vector<pair<int, int>>& values) {
-    if (values.empty()) 
+Node* copyRandomList(Node* head) {
+    if(head == NULL)
+        return head;
+
+    // 1. Inserting copy of nodes in between
+    insertCopyInBetween(head);
+    
+    // 2. Connect random pointers of copied nodes
+    connectRandomPointers(head);
+
+    // 3. Get the final deep copy of the linked list
+    return getDeepCopyList(head);
+}
+
+int main() {
+    vector<int> values = {7, 13, 11, 10, 1}, randomIndices = {-1, 0, 4, 2, 0};
+
+    Node* head = createLinkedList(values);
+    setRandomPointers(head, randomIndices);
+
+    Node* copied = copyRandomList(head);
+
+    printLinkedList(copied);
+
+    return 0;
+}
+
+// Helper function to create a linked list from a vector of values
+Node* createLinkedList(const vector<int>& values) {
+    if (values.empty())
         return nullptr;
-    
-    vector<Node*> nodes;
-    for (const auto& val : values) {
-        nodes.push_back(new Node(val.first));
+    Node* head = new Node(values[0]);
+    Node* current = head;
+    for (size_t i = 1; i < values.size(); ++i) {
+        current->next = new Node(values[i]);
+        current = current->next;
     }
-    
-    for (int i = 0; i < values.size(); ++i) {
-        if (i < values.size() - 1) {
-            nodes[i]->next = nodes[i + 1];
-        }
-        if (values[i].second != -1) {
-            nodes[i]->random = nodes[values[i].second];
-        }
-    }
-    
-    return nodes[0];
+    return head;
 }
 
-// Helper function to print the linked list
+// Helper function to print a linked list with random pointer values
 void printLinkedList(Node* head) {
-    while (head) {
-        cout << "[" << head->val << ",";
-        if (head->random) {
+    while (head != nullptr) {
+        cout << "[" << head->val << ", ";
+        if (head->random != nullptr)
             cout << head->random->val;
-        } else {
+        else
             cout << "null";
-        }
-        cout << "] ";
+        cout << "]";
+        if (head->next != nullptr) cout << " -> ";
         head = head->next;
     }
     cout << endl;
+}
+
+// Helper function to set random pointers by index (-1 means nullptr)
+void setRandomPointers(Node* head, const vector<int>& randomIndices) {
+    vector<Node*> nodes;
+    Node* current = head;
+    while (current != nullptr) {
+        nodes.push_back(current);
+        current = current->next;
+    }
+    for (size_t i = 0; i < nodes.size(); ++i) {
+        int idx = randomIndices[i];
+        nodes[i]->random = (idx == -1) ? nullptr : nodes[idx];
+    }
 }

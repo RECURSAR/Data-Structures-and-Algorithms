@@ -1,31 +1,34 @@
-#include <iostream>
+#include<iostream>
+#include<bits/stdc++.h>
+ 
+using namespace std;
 
-using namespace std; 
-
-double pow(double x, int n) {
-    // Base case
-    if (n == 0)
+double power(double x, long long num) {
+    if(num == 0)
         return 1.0;
+    if(num == 1)
+        return x;
 
-    // Calculate power for n // 2
-    double half = pow(x, n / 2);
+    if(num % 2 == 0)
+        return power(x * x, num / 2);
+    
+    return x * power(x, num - 1);
+}
 
-    // If n is even, the result is half * half
-    if (n % 2 == 0)
-        return half * half;
-    else {
-        // If n is odd, and n > 0, the result is x * half * half
-        if (n > 0)
-            return x * half * half;
-        else
-            // If n < 0, the result is (1/x) * half * half
-            return (half * half) / x;
-    }
+double myPow(double x, int n) {
+    long long num = n;
+
+    if(num < 0) 
+        return (1.0 / power(x, -1 * num));
+
+    return power(x, num);
 }
 
 int main() {
-    double x = 2.0;
+    double x = 2.00000;
     int n = 10;
-    cout << "pow(" << x << ", " << n << ") = " << pow(x, n) << std::endl;
+    
+    cout<<myPow(x, n);
+
     return 0;
 }
