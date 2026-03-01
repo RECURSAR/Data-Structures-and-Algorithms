@@ -14,6 +14,7 @@ void insertInSorted(stack<int> &st, int temp) {
 
     int val = st.top();
     st.pop();
+    
     insertInSorted(st, temp);
 
     st.push(val);
