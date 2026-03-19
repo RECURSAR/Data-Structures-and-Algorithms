@@ -61,12 +61,10 @@ int main() {
     vector<vector<int>> matrix = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
 
     setZeroes(matrix);
-
+    
     for(auto row : matrix) {
-        for(auto num : row) {
+        for(auto num : row)
             cout<<num<<" ";
-        }
-
         cout<<endl;
     }
 
