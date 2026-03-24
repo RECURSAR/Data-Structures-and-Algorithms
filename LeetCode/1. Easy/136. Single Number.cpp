@@ -13,7 +13,7 @@ int singleNumber(vector<int>& nums) {
 }
 
 int main() {
-    vector<int> nums = {4, 1, 2, 1, 2};
+    vector<int> nums = {2, 2, 1};
 
     cout<<singleNumber(nums);
 

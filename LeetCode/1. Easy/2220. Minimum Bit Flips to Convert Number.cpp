@@ -3,23 +3,40 @@
  
 using namespace std;
 
-int countOnes(int flips) {
-        int count = 0;
-        while(flips){
-            count += (flips & 1);   // AND operation with LSB of flips and 1
-            flips >>= 1;        // Right shift by 1
-        }
-        return count;
+// Worst Case - 32 Iterations
+/*
+int minBitFlips(int start, int goal) {
+    int XOR = start ^ goal, count = 0;
+    
+    while(XOR > 0) {
+        if(XOR & 1)
+            count += 1;
+        
+        XOR >>= 1;
     }
 
+    return count;
+}
+*/
+
+// Optimal Approach - O(k), k is the number of set bits - Brian Kernighan's Trick
 int minBitFlips(int start, int goal) {
-    int flips = start ^ goal;
-    return countOnes(flips);
+    int XOR = start ^ goal, count = 0;
+    
+    while(XOR) {
+        // Removes the lowest set bit
+        XOR &= XOR - 1;
+
+        count += 1;
+    }
+
+    return count;
 }
 
-int main()
-{
-    int start = 7, goal = 3;
-    cout<<minBitFlips(start,goal);
+int main() {
+    int start = 10, goal = 7;
+    
+    cout<<minBitFlips(start, goal);
+
     return 0;
 }
