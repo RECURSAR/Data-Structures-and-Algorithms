@@ -1,87 +1,37 @@
-class Solution {
-public:
-    bool isValid(string s) {
-    stack<char> stack;
-    int i=0, n = s.size(), flag = 0; 
-    char c;
+#include<iostream>
+#include<bits/stdc++.h>
+ 
+using namespace std;
 
-    while(i<n)
-    {
-        c = s[i];
-        switch (c)
-        {
-        case '(':
-                    stack.push(c);
-                    break;
-        
-        case ')':
-                    if(stack.empty()==1)
-                    {
-                        flag = 1;
-                        break;
-                    }
-                        
-                    if(stack.top()=='(')
-                        {
-                            stack.pop();
-                            break;
-                        }
-                    else 
-                        stack.push(c);
-                    break;
+bool isValid(string s) {
+    stack<char> st;
 
-        case '{':
-                    stack.push(c);
-                    break;
-        
-        case '}':
-                    if(stack.empty()==1)
-                    {
-                        flag = 1;
-                        break;
-                    }
-                        
-                    if(stack.top()=='{')
-                        {
-                            stack.pop();
-                            break;
-                        }
-                    else 
-                        stack.push(c);
-                    break;
+    for(size_t i = 0; i < s.size(); i++) {
+        if(s[i] == '(' || s[i] == '{' || s[i] == '[')
+            st.push(s[i]);
+        else {
+            if(st.empty())
+                return false;
+            
+            char top = st.top();
+            st.pop();
 
-        case '[':
-                    stack.push(c);
-                    break;
-        
-        case ']':
-                    if(stack.empty()==1)
-                    {
-                        flag = 1;
-                        break;
-                    }
-                        
-
-                    if(stack.top()=='[')
-                        {
-                            stack.pop();
-                            break;
-                        }
-                    else 
-                        stack.push(c);
-                        
-                    break;
-        default:
-                    break;
+            if(top == '(' && s[i] != ')')
+                return false;
+            if(top == '{' && s[i] != '}')
+                return false;
+            if(top == '[' && s[i] != ']')
+                return false;
         }
+    }
 
-        i++;
-    }
-   
-   if(stack.empty()==1 && flag==0)
-    return true;
-   
-   else 
-    return false;
-    }
-};
+    return st.empty();
+}
+
+int main() {
+    string s = "()";
+    
+    isValid(s) ? cout<<"True" : cout<<"False";
+
+    return 0;
+}
